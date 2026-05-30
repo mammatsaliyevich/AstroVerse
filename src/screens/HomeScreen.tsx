@@ -41,7 +41,14 @@ const HomeScreen: React.FC = () => {
           </View>
 
           <View style={styles.actions}>
-            <Button title="Begin Journey" onPress={() => navigation.navigate('Universe')} fullWidth />
+            <Button title="Begin Journey" onPress={() => navigation.navigate('Explore')} fullWidth />
+            <View style={{ height: 12 }} />
+            <Button
+              title="Browse Catalog"
+              variant="outline"
+              onPress={() => navigation.navigate('Universe')}
+              fullWidth
+            />
             <View style={{ height: 12 }} />
             <Button
               title="Achievements"

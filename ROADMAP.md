@@ -19,6 +19,11 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned
 - ⏳ **Universe Navigation Engine (3D)** — scale-based traversal
   (Universe → galaxy → system → object) using Three.js / `@react-three/fiber`,
   layered on top of the existing scale model.
+  - ✅ **Foundation** — scale levels, hierarchy model, camera-state management,
+    zoom transitions, object focus, breadcrumbs, and exploration history
+    (`src/engine/*`, `src/store/navigationStore.ts`, `src/screens/ExploreScreen.tsx`).
+  - ⏳ **Rendering** — swap the 2D viewport for a Three.js / Expo GL scene driven
+    by `sampleTransition()`.
 
 ## Priority 2 — Surface Exploration
 

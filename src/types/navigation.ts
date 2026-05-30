@@ -3,6 +3,7 @@ import type { RouteProp } from '@react-navigation/native';
 
 export type RootStackParamList = {
   Home: undefined;
+  Explore: undefined;
   Universe: undefined;
   ObjectDetail: { planetId: string };
   AIGuide: { planetId?: string };
