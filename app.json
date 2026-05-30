@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "AstroVerse",
+    "slug": "astroverse",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "astroverse",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#05010f"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.astroverse.app"
+    },
+    "android": {
+      "package": "com.astroverse.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#05010f"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
