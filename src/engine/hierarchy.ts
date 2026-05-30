@@ -148,3 +148,13 @@ export const getChildren = (id: string): NavNode[] => registry.getChildren(id);
 export const hasChildren = (id: string): boolean => registry.hasChildren(id);
 export const getAncestors = (id: string): NavNode[] => registry.ancestors(id);
 export const allNodes = (): NavNode[] => registry.all();
+
+/**
+ * Register more catalog objects into the live hierarchy at runtime — e.g. when
+ * a galaxy's stars are paged in from a server or generated procedurally. Safe
+ * to call repeatedly; positions are recomputed for affected parents.
+ */
+export function registerObjects(objects: CelestialObject[]): void {
+  registry.registerObjects(objects);
+  registry.layout();
+}

@@ -12,10 +12,19 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned
 
 - ✅ **Celestial Object System** — one generalized `CelestialObject` model
   (`src/types/celestial.ts`) rendered uniformly across the app.
-- ✅ **Expanded Object Catalog** — stars, planets, moons, and a supermassive
-  black hole, aggregated in `src/data/catalog.ts`.
+- ✅ **Expanded Object Catalog (Cosmic Expansion Layer)** — the catalog now
+  spans the full cosmic scale: superclusters, galaxy clusters, galaxies,
+  nebulae, quasars, star systems, stars, neutron stars, pulsars, black holes,
+  planets, dwarf planets, moons, comets, asteroids, spacecraft, and space
+  stations (**17 kinds, 30+ real objects** incl. Andromeda, Triangulum, Orion/
+  Eagle/Crab nebulae, Vela & PSR B1919+21 pulsars, TON 618, M87*). Data is split
+  across `src/data/{cosmos,deepSky,solarBodies,planets}.ts` and aggregated in
+  `src/data/catalog.ts`.
+- ✅ **Scalable hierarchy** — `src/engine/hierarchy.ts` is an incremental
+  registry with O(1) indexed parent→children lookups and a public
+  `registerObjects()` for paging in millions of nodes at runtime.
 - ✅ **Scale / category navigation** — browse by kind with search and filters
-  (`src/screens/UniverseScreen.tsx`).
+  (`src/screens/UniverseScreen.tsx`); category chips derive from the catalog.
 - ⏳ **Universe Navigation Engine (3D)** — scale-based traversal
   (Universe → galaxy → system → object) using Three.js / `@react-three/fiber`,
   layered on top of the existing scale model.

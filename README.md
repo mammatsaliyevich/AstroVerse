@@ -11,7 +11,8 @@ An interactive universe exploration app built with **Expo**, **React Native**, a
 
 ## ✨ Features
 
-- **Universe browser** — explore a unified catalog of **stars, planets, moons, and black holes**, filterable by category and searchable by name.
+- **Universe browser** — explore a unified catalog spanning the full cosmic scale: **superclusters, galaxy clusters, galaxies, nebulae, quasars, star systems, stars, neutron stars, pulsars, black holes, planets, dwarf planets, moons, comets, asteroids, spacecraft, and space stations** — filterable by category and searchable by name.
+- **Universe Navigation Engine** — travel the hierarchy Universe → Supercluster → Cluster → Galaxy → Star System → Star → Planet → Moon, with breadcrumbs, zoom transitions, back/forward history, and a scalable registry ready for millions of objects.
 - **Celestial Object System** — every object shares one generalized model, so detail pages render kind-specific stats and facts uniformly.
 - **Object detail pages** — formatted scientific stats, descriptions, and fun facts for any object kind.
 - **AI Guide** — an offline guide that answers in **Beginner**, **Student**, or **Expert** mode, tailored to the object you're viewing.
