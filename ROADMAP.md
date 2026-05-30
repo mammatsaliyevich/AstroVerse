@@ -36,9 +36,18 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned
 
 ## Priority 2 — Surface Exploration
 
-- ⏳ Planet/moon landing experience for bodies flagged `hasSurface`.
-- ⏳ Surface landmarks (e.g. Olympus Mons, Valles Marineris).
-- ⏳ Atmospheric and lighting effects per body.
+- ✅ **Landing experience** — `SurfaceScreen` entered from a body's detail page
+  (`🛬 Land on …`), with a per-world sky gradient, horizon/terrain band, and a
+  "Return to Navigator" exit (`src/screens/SurfaceScreen.tsx`).
+- ✅ **Planet environment system** — atmosphere, gravity, temperature and
+  day/night length per body.
+- ✅ **Landmarks** — Mars (Olympus Mons, Valles Marineris, Polar Ice Caps),
+  Moon (Tycho, Mare Tranquillitatis, Shackleton), Earth (Everest, Mariana
+  Trench, Amazon) in `src/data/surfaces.ts`; reusable for any future world.
+- ✅ **Discovery tracking & progress** — tapping a landmark discovers it (XP +
+  achievement re-evaluation), persisted via the store, with a per-world
+  progress bar.
+- ⏳ Real 3D atmospheric/lighting effects (layered on once the renderer lands).
 
 ## Priority 3 — AI Astronomy Guide
 

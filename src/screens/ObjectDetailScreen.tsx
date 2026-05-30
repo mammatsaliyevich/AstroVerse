@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeProvider';
 import { getObjectById } from '../data/catalog';
+import { hasSurfaceData } from '../data/surfaces';
 import { KIND_LABELS } from '../types/celestial';
 import { useUniverseStore } from '../store/universeStore';
 import Card from '../components/ui/Card';
@@ -98,6 +99,16 @@ const ObjectDetailScreen: React.FC = () => {
         ))}
 
         <View style={{ height: 20 }} />
+        {hasSurfaceData(object.id) && (
+          <>
+            <Button
+              title={`🛬 Land on ${object.name}`}
+              onPress={() => navigation.navigate('Surface', { objectId: object.id })}
+              fullWidth
+            />
+            <View style={{ height: 12 }} />
+          </>
+        )}
         <Button
           title={favorite ? '★ Favorited' : '☆ Add to Favorites'}
           variant="secondary"

@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import UniverseScreen from '../screens/UniverseScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import ObjectDetailScreen from '../screens/ObjectDetailScreen';
+import SurfaceScreen from '../screens/SurfaceScreen';
 import AIGuideScreen from '../screens/AIGuideScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
 
@@ -25,6 +26,11 @@ const AppNavigator: React.FC = () => (
     <Stack.Screen
       name="ObjectDetail"
       component={ObjectDetailScreen}
+      options={{ animation: 'slide_from_bottom' }}
+    />
+    <Stack.Screen
+      name="Surface"
+      component={SurfaceScreen}
       options={{ animation: 'slide_from_bottom' }}
     />
     <Stack.Screen

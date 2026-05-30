@@ -5,6 +5,7 @@ import { ProgressSnapshot } from '../data/achievements';
 import { evaluateUnlocks, levelForXp, LevelInfo } from '../services/progression';
 
 const XP_PER_VISIT = 10;
+const XP_PER_DISCOVERY = 15;
 
 interface UniverseState {
   /** IDs of planets the user has opened at least once. */
@@ -13,6 +14,8 @@ interface UniverseState {
   favorites: string[];
   /** IDs of unlocked achievements. */
   unlockedAchievements: string[];
+  /** IDs of surface landmarks the user has discovered. */
+  discoveredLandmarks: string[];
   /** Experience points earned through exploration. */
   xp: number;
   /** IDs unlocked during the most recent action (for surfacing toasts/UI). */
@@ -21,8 +24,10 @@ interface UniverseState {
   // Actions
   visitPlanet: (id: string) => void;
   toggleFavorite: (id: string) => void;
+  discoverLandmark: (id: string) => void;
   hasVisited: (id: string) => boolean;
   isFavorite: (id: string) => boolean;
+  hasDiscovered: (id: string) => boolean;
   getLevel: () => LevelInfo;
   clearRecentUnlocks: () => void;
   reset: () => void;
@@ -56,6 +61,7 @@ export const useUniverseStore = create<UniverseState>()(
       visited: [],
       favorites: [],
       unlockedAchievements: [],
+      discoveredLandmarks: [],
       xp: 0,
       recentUnlocks: [],
 
@@ -96,8 +102,27 @@ export const useUniverseStore = create<UniverseState>()(
           };
         }),
 
+      discoverLandmark: (id) =>
+        set((state) => {
+          if (state.discoveredLandmarks.includes(id)) return state;
+          const discoveredLandmarks = [...state.discoveredLandmarks, id];
+          const snapshot: ProgressSnapshot = {
+            visited: state.visited,
+            favorites: state.favorites,
+            xp: state.xp + XP_PER_DISCOVERY,
+          };
+          const res = resolveUnlocks(snapshot, state.unlockedAchievements);
+          return {
+            discoveredLandmarks,
+            xp: res.xp,
+            unlockedAchievements: res.unlockedAchievements,
+            recentUnlocks: res.newlyUnlocked,
+          };
+        }),
+
       hasVisited: (id) => get().visited.includes(id),
       isFavorite: (id) => get().favorites.includes(id),
+      hasDiscovered: (id) => get().discoveredLandmarks.includes(id),
       getLevel: () => levelForXp(get().xp),
       clearRecentUnlocks: () => set({ recentUnlocks: [] }),
       reset: () =>
@@ -105,6 +130,7 @@ export const useUniverseStore = create<UniverseState>()(
           visited: [],
           favorites: [],
           unlockedAchievements: [],
+          discoveredLandmarks: [],
           xp: 0,
           recentUnlocks: [],
         }),
@@ -117,6 +143,7 @@ export const useUniverseStore = create<UniverseState>()(
         visited: s.visited,
         favorites: s.favorites,
         unlockedAchievements: s.unlockedAchievements,
+        discoveredLandmarks: s.discoveredLandmarks,
         xp: s.xp,
       }),
     }

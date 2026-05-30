@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Explore: undefined;
   Universe: undefined;
   ObjectDetail: { planetId: string };
+  Surface: { objectId: string };
   AIGuide: { planetId?: string };
   Achievements: undefined;
 };
