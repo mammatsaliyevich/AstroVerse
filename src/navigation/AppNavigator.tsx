@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import UniverseScreen from '../screens/UniverseScreen';
 import ObjectDetailScreen from '../screens/ObjectDetailScreen';
 import AIGuideScreen from '../screens/AIGuideScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,6 +29,11 @@ const AppNavigator: React.FC = () => (
       name="AIGuide"
       component={AIGuideScreen}
       options={{ presentation: 'modal' }}
+    />
+    <Stack.Screen
+      name="Achievements"
+      component={AchievementsScreen}
+      options={{ animation: 'slide_from_right' }}
     />
   </Stack.Navigator>
 );

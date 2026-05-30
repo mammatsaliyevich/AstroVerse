@@ -14,8 +14,11 @@ const ObjectDetailScreen: React.FC = () => {
   const route = useRoute<Route<'ObjectDetail'>>();
   const { colors, typography } = useTheme();
   const visitPlanet = useUniverseStore((s) => s.visitPlanet);
+  const toggleFavorite = useUniverseStore((s) => s.toggleFavorite);
+  const planetId = route.params.planetId;
+  const favorite = useUniverseStore((s) => s.favorites.includes(planetId));
 
-  const planet = getPlanetById(route.params.planetId);
+  const planet = getPlanetById(planetId);
 
   useEffect(() => {
     if (planet) visitPlanet(planet.id);
@@ -83,6 +86,13 @@ const ObjectDetailScreen: React.FC = () => {
         ))}
 
         <View style={{ height: 20 }} />
+        <Button
+          title={favorite ? '★ Favorited' : '☆ Add to Favorites'}
+          variant="secondary"
+          onPress={() => toggleFavorite(planet.id)}
+          fullWidth
+        />
+        <View style={{ height: 12 }} />
         <Button
           title={`Ask AI about ${planet.name}`}
           onPress={() => navigation.navigate('AIGuide', { planetId: planet.id })}

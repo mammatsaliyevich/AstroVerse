@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Universe: undefined;
   ObjectDetail: { planetId: string };
   AIGuide: { planetId?: string };
+  Achievements: undefined;
 };
 
 export type NavProp<T extends keyof RootStackParamList> =

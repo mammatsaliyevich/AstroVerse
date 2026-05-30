@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeProvider';
 import { useUniverseStore } from '../store/universeStore';
+import { levelForXp } from '../services/progression';
 import Button from '../components/ui/Button';
 import { NavProp } from '../types/navigation';
 
@@ -15,6 +16,7 @@ const HomeScreen: React.FC = () => {
   const { colors, typography } = useTheme();
   const xp = useUniverseStore((s) => s.xp);
   const visited = useUniverseStore((s) => s.visited.length);
+  const level = levelForXp(xp).level;
 
   return (
     <LinearGradient
@@ -34,11 +36,19 @@ const HomeScreen: React.FC = () => {
 
           <View style={styles.statsRow}>
             <Stat label="Planets Visited" value={`${visited}/8`} color={colors.cosmic.cyan} />
+            <Stat label="Level" value={`${level}`} color={colors.cosmic.pink} />
             <Stat label="Experience" value={`${xp} XP`} color={colors.cosmic.purple} />
           </View>
 
           <View style={styles.actions}>
             <Button title="Begin Journey" onPress={() => navigation.navigate('Universe')} fullWidth />
+            <View style={{ height: 12 }} />
+            <Button
+              title="Achievements"
+              variant="secondary"
+              onPress={() => navigation.navigate('Achievements')}
+              fullWidth
+            />
             <View style={{ height: 12 }} />
             <Button
               title="Ask the AI Guide"
