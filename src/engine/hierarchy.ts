@@ -22,14 +22,9 @@ interface ContainerDef {
   parentId: string | null;
 }
 
-/**
- * Synthetic container nodes. `milky_way` and `solar_system` are temporary here
- * and become real catalog objects in the Cosmic Expansion data milestone.
- */
+/** The only synthetic node; every other node is backed by a catalog object. */
 const CONTAINERS: ContainerDef[] = [
   { id: 'universe', name: 'Observable Universe', scale: ScaleLevel.Universe, parentId: null },
-  { id: 'milky_way', name: 'Milky Way', scale: ScaleLevel.Galaxy, parentId: 'universe' },
-  { id: 'solar_system', name: 'Solar System', scale: ScaleLevel.StarSystem, parentId: 'milky_way' },
 ];
 
 /** Hierarchy parent resolution: explicit parentId wins, else a kind default. */

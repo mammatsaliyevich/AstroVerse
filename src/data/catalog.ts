@@ -1,4 +1,5 @@
 import { planets } from './planets';
+import { cosmicStructures } from './cosmos';
 import {
   CelestialObject,
   CelestialKind,
@@ -198,8 +199,9 @@ const blackHoles: CelestialObject[] = [
   },
 ];
 
-/** Ordered roughly by scale: stars, planets, moons, then the galactic core. */
+/** Ordered from the largest cosmic structures down to individual bodies. */
 export const catalog: CelestialObject[] = [
+  ...cosmicStructures,
   ...stars,
   ...planetObjects,
   ...moons,
@@ -212,12 +214,30 @@ export const getObjectById = (id: string): CelestialObject | undefined =>
 export const getObjectsByKind = (kind: CelestialKind): CelestialObject[] =>
   catalog.filter((o) => o.kind === kind);
 
-/** Kinds present in the catalog, in display order, for the category navigator. */
-export const catalogKinds: CelestialKind[] = [
+/** Display order for category navigation; spans the full cosmic scale. */
+const KIND_DISPLAY_ORDER: CelestialKind[] = [
+  'supercluster',
+  'galaxy_cluster',
+  'galaxy',
+  'nebula',
+  'quasar',
+  'star_system',
   'star',
-  'planet',
-  'moon',
+  'neutron_star',
+  'pulsar',
   'black_hole',
+  'planet',
+  'dwarf_planet',
+  'moon',
+  'comet',
+  'asteroid',
+  'spacecraft',
+  'space_station',
 ];
+
+/** Kinds that currently have at least one object, in display order. */
+export const catalogKinds: CelestialKind[] = KIND_DISPLAY_ORDER.filter((kind) =>
+  catalog.some((o) => o.kind === kind)
+);
 
 export default catalog;
