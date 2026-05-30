@@ -1,5 +1,7 @@
 import { planets } from './planets';
 import { cosmicStructures } from './cosmos';
+import { deepSkyObjects } from './deepSky';
+import { solarBodies } from './solarBodies';
 import {
   CelestialObject,
   CelestialKind,
@@ -202,9 +204,11 @@ const blackHoles: CelestialObject[] = [
 /** Ordered from the largest cosmic structures down to individual bodies. */
 export const catalog: CelestialObject[] = [
   ...cosmicStructures,
+  ...deepSkyObjects,
   ...stars,
   ...planetObjects,
   ...moons,
+  ...solarBodies,
   ...blackHoles,
 ];
 
