@@ -38,11 +38,23 @@ export interface Planet {
  * for systems that need numeric planetary fields (e.g. the AI guide).
  */
 export type CelestialKind =
+  | 'supercluster'
+  | 'galaxy_cluster'
+  | 'galaxy'
+  | 'nebula'
+  | 'quasar'
+  | 'star_system'
+  | 'star'
+  | 'neutron_star'
+  | 'pulsar'
+  | 'black_hole'
   | 'planet'
   | 'dwarf_planet'
-  | 'star'
   | 'moon'
-  | 'black_hole';
+  | 'comet'
+  | 'asteroid'
+  | 'spacecraft'
+  | 'space_station';
 
 /** A display-ready key/value statistic shown on the detail screen. */
 export interface StatItem {
@@ -72,9 +84,21 @@ export interface CelestialObject {
 
 /** Human-readable label for each kind, used by the category navigator. */
 export const KIND_LABELS: Record<CelestialKind, string> = {
+  supercluster: 'Superclusters',
+  galaxy_cluster: 'Galaxy Clusters',
+  galaxy: 'Galaxies',
+  nebula: 'Nebulae',
+  quasar: 'Quasars',
+  star_system: 'Star Systems',
   star: 'Stars',
+  neutron_star: 'Neutron Stars',
+  pulsar: 'Pulsars',
+  black_hole: 'Black Holes',
   planet: 'Planets',
   dwarf_planet: 'Dwarf Planets',
   moon: 'Moons',
-  black_hole: 'Black Holes',
+  comet: 'Comets',
+  asteroid: 'Asteroids',
+  spacecraft: 'Spacecraft',
+  space_station: 'Space Stations',
 };

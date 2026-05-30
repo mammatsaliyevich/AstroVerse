@@ -17,7 +17,8 @@ export interface NavNode {
   name: string;
   scale: ScaleLevel;
   parentId: string | null;
-  childIds: string[];
+  /** Deprecated: children are resolved via the hierarchy registry index. */
+  childIds?: string[];
   /** Catalog CelestialObject id, when this node is a concrete body. */
   objectId?: string;
   /** Local position within the parent's space (for future 3D layout). */
