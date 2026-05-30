@@ -11,11 +11,12 @@ An interactive universe exploration app built with **Expo**, **React Native**, a
 
 ## ✨ Features
 
-- **Solar System browser** — all eight planets in a responsive grid.
-- **Planet detail pages** — radius, gravity, day/year length, temperature, moons, and fun facts pulled from NASA-based data.
-- **AI Guide** — an offline guide that answers questions in **Beginner**, **Student**, or **Expert** mode, tailored to the planet you're viewing.
-- **Progress tracking** — visited planets and experience points (XP) persisted in app state via Zustand.
-- **Premium dark UI** — deep-space gradients, glassmorphism cards, and a NASA-inspired palette.
+- **Universe browser** — explore a unified catalog of **stars, planets, moons, and black holes**, filterable by category and searchable by name.
+- **Celestial Object System** — every object shares one generalized model, so detail pages render kind-specific stats and facts uniformly.
+- **Object detail pages** — formatted scientific stats, descriptions, and fun facts for any object kind.
+- **AI Guide** — an offline guide that answers in **Beginner**, **Student**, or **Expert** mode, tailored to the object you're viewing.
+- **Progression** — XP, levels, and unlockable **achievements**, with **favorites** and visited-tracking **persisted** on-device (Zustand + AsyncStorage).
+- **Premium dark UI** — deep-space gradients, glassmorphism cards, emissive star glow, and a NASA-inspired palette.
 
 ---
 
@@ -84,13 +85,15 @@ Then press `i` (iOS), `a` (Android), or `w` (web) — or scan the QR code with t
 
 ## 🗺️ Roadmap
 
-These are intentionally **not** bundled yet so the project installs and runs cleanly out of the box:
+See [`ROADMAP.md`](ROADMAP.md) for the full prioritized plan. Headline order:
 
-- [ ] 3D universe rendering (Three.js / `@react-three/fiber`)
-- [ ] Firebase authentication + cloud sync
-- [ ] Real LLM-powered AI guide (OpenAI/Anthropic)
-- [ ] Backend API + PostgreSQL persistence
-- [ ] Surface exploration, quizzes, and achievements
+1. **Core exploration** — Celestial Object System ✅, expanded catalog ✅, scale/category navigation ✅
+2. **Surface exploration** — landing experience, landmarks, atmospheric effects *(in progress)*
+3. **AI Astronomy Guide** — upgrade the offline guide to a real LLM
+4. **Engagement layer** — persistence ✅, achievements ✅, favorites ✅, search ✅, settings *(next)*
+5. **Cloud** — backend API, auth, cross-device sync (deferred so the app runs offline out of the box)
+
+Real-time 3D rendering (Three.js / `@react-three/fiber`) is a later layer on top of the scale model.
 
 ---
 

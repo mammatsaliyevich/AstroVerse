@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeProvider';
-import { getPlanetById } from '../data/planets';
+import { getObjectById } from '../data/catalog';
+import { KIND_LABELS } from '../types/celestial';
 import { useUniverseStore } from '../store/universeStore';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -15,32 +16,24 @@ const ObjectDetailScreen: React.FC = () => {
   const { colors, typography } = useTheme();
   const visitPlanet = useUniverseStore((s) => s.visitPlanet);
   const toggleFavorite = useUniverseStore((s) => s.toggleFavorite);
-  const planetId = route.params.planetId;
-  const favorite = useUniverseStore((s) => s.favorites.includes(planetId));
+  const objectId = route.params.planetId;
+  const favorite = useUniverseStore((s) => s.favorites.includes(objectId));
 
-  const planet = getPlanetById(planetId);
+  const object = getObjectById(objectId);
 
   useEffect(() => {
-    if (planet) visitPlanet(planet.id);
-  }, [planet, visitPlanet]);
+    if (object) visitPlanet(object.id);
+  }, [object, visitPlanet]);
 
-  if (!planet) {
+  if (!object) {
     return (
       <SafeAreaView style={[styles.fill, styles.center, { backgroundColor: colors.space.deep }]}>
-        <Text style={{ color: colors.text.primary }}>Planet not found.</Text>
+        <Text style={{ color: colors.text.primary }}>Object not found.</Text>
         <Button title="Go Back" variant="outline" onPress={() => navigation.goBack()} />
       </SafeAreaView>
     );
   }
 
-  const stats: Array<[string, string]> = [
-    ['Radius', `${planet.radiusKm.toLocaleString()} km`],
-    ['Gravity', `${planet.gravity} m/s²`],
-    ['Day length', `${planet.dayLengthHours} h`],
-    ['Year length', `${planet.yearLengthDays} days`],
-    ['Avg. temp', `${planet.avgTempC}°C`],
-    ['Moons', `${planet.moons}`],
-  ];
 
   return (
     <SafeAreaView style={[styles.fill, { backgroundColor: colors.space.deep }]}>
@@ -53,30 +46,49 @@ const ObjectDetailScreen: React.FC = () => {
         </Text>
 
         <View style={styles.hero}>
-          <View style={[styles.planet, { backgroundColor: planet.color }]} />
+          <View
+            style={[
+              styles.body,
+              { backgroundColor: object.color },
+              object.emissive && {
+                shadowColor: object.color,
+                shadowOpacity: 0.9,
+                shadowRadius: 28,
+                shadowOffset: { width: 0, height: 0 },
+                elevation: 16,
+              },
+              object.kind === 'black_hole' && { borderWidth: 5, borderColor: colors.cosmic.purple },
+            ]}
+          />
+          <Text style={[styles.kind, { color: colors.cosmic.cyan, fontSize: typography.sizes.xs }]}>
+            {KIND_LABELS[object.kind].toUpperCase()}
+          </Text>
           <Text style={[styles.name, { color: colors.text.primary, fontSize: typography.sizes.xxl }]}>
-            {planet.name}
+            {object.name}
           </Text>
           <Text style={{ color: colors.text.secondary, fontSize: typography.sizes.md, textAlign: 'center' }}>
-            {planet.description}
+            {object.description}
           </Text>
         </View>
 
         <View style={styles.statsGrid}>
-          {stats.map(([label, value]) => (
-            <Card key={label} style={styles.statCard}>
-              <Text style={{ color: colors.text.primary, fontSize: typography.sizes.lg, fontWeight: '700' }}>
-                {value}
+          {object.stats.map((s) => (
+            <Card key={s.label} style={styles.statCard}>
+              <Text style={{ color: colors.text.primary, fontSize: typography.sizes.md, fontWeight: '700', textAlign: 'center' }}>
+                {s.value}
               </Text>
-              <Text style={{ color: colors.text.tertiary, fontSize: typography.sizes.xs }}>{label}</Text>
+              <Text style={{ color: colors.text.tertiary, fontSize: typography.sizes.xs, textAlign: 'center', marginTop: 2 }}>
+                {s.label}
+              </Text>
             </Card>
           ))}
         </View>
 
+
         <Text style={[styles.section, { color: colors.text.primary, fontSize: typography.sizes.lg }]}>
           Did you know?
         </Text>
-        {planet.facts.map((fact, i) => (
+        {object.facts.map((fact, i) => (
           <View key={i} style={styles.factRow}>
             <Text style={{ color: colors.cosmic.cyan }}>•</Text>
             <Text style={{ color: colors.text.secondary, flex: 1, fontSize: typography.sizes.sm }}>
@@ -89,15 +101,16 @@ const ObjectDetailScreen: React.FC = () => {
         <Button
           title={favorite ? '★ Favorited' : '☆ Add to Favorites'}
           variant="secondary"
-          onPress={() => toggleFavorite(planet.id)}
+          onPress={() => toggleFavorite(object.id)}
           fullWidth
         />
         <View style={{ height: 12 }} />
         <Button
-          title={`Ask AI about ${planet.name}`}
-          onPress={() => navigation.navigate('AIGuide', { planetId: planet.id })}
+          title={`Ask AI about ${object.name}`}
+          onPress={() => navigation.navigate('AIGuide', { planetId: object.id })}
           fullWidth
         />
+        <View style={{ height: 32 }} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -107,8 +120,9 @@ const styles = StyleSheet.create({
   fill: { flex: 1 },
   center: { alignItems: 'center', justifyContent: 'center', gap: 16 },
   content: { paddingHorizontal: 24, paddingBottom: 40 },
-  hero: { alignItems: 'center', marginVertical: 20, gap: 12 },
-  planet: { width: 120, height: 120, borderRadius: 60 },
+  hero: { alignItems: 'center', marginVertical: 20, gap: 8 },
+  body: { width: 120, height: 120, borderRadius: 60, marginBottom: 8 },
+  kind: { fontWeight: '700', letterSpacing: 1 },
   name: { fontWeight: '700' },
   statsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, justifyContent: 'space-between' },
   statCard: { width: '31%', alignItems: 'center' },
